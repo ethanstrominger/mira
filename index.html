@@ -1,73 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MIRA Donation</title>
-<style>
-body {
-font-family: system-ui, sans-serif;
-margin: 0;
-padding: 0;
-background: #f5f7fa;
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-}
-.card {
-background: white;
-padding: 32px;
-border-radius: 20px;
-box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-max-width: 420px;
-width: 90%;
-text-align: center;
-}
-h1 {
-margin-top: 0;
-font-size: 1.8rem;
-}
-.buttons {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 12px;
-margin-top: 20px;
-}
-button {
-padding: 14px;
-font-size: 1.2rem;
-border: none;
-border-radius: 12px;
-background: #3d6df2;
-color: white;
-cursor: pointer;
-transition: 0.2s;
-}
-button:hover {
-background: #2e55c7;
-}
-.custom-container {
-margin-top: 22px;
-display: flex;
-gap: 10px;
-justify-content: center;
-}
-input {
-padding: 12px;
-width: 100px;
-font-size: 1.1rem;
-border-radius: 10px;
-border: 1px solid #aaa;
-text-align: center;
-}
-.custom-btn {
-background: #4caf50;
-}
-.custom-btn:hover {
-background: #3a8b3e;
-}
-footer {
-margin-top: 20px;
-font-size: 0.9rem;
-color: #666;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIRA Donation</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: white;
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 14px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      background: #3d6df2;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #2e55c7;
+    }
+    .custom-container {
+      margin-top: 22px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    input {
+      padding: 12px;
+      width: 100px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      border: 1px solid #aaa;
+      text-align: center;
+    }
+    .custom-btn {
+      background: #4caf50;
+    }
+    .custom-btn:hover {
+      background: #3a8b3e;
+    }
+    footer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Donate to MIRA</h1>
+    <p>Suggested amounts:</p>
+
+    <div class="buttons">
+      <button onclick="pay(3)">$3</button>
+      <button onclick="pay(4)">$4</button>
+      <button onclick="pay(10)">$10</button>
+      <button onclick="document.getElementById('custom').focus()">Custom</button>
+    </div>
+
+    <div class="custom-container">
+      <input id="custom" type="number" placeholder="$" min="1" />
+      <button class="custom-btn" onclick="customPay()">Pay</button>
+    </div>
+
+    <footer>All payments go through Venmo → Donated to MIRA</footer>
+  </div>
+
+  <script>
+    const venmoUser = "ethan-strominger";
+
+    function pay(amount) {
+      const url = `https://venmo.com/u/${venmoUser}?txn=pay&amount=${amount}&note=MIRA%20donation`;
+      window.location.href = url;
+    }
+
+    function customPay() {
+      const amt = document.getElementById('custom').value;
+      if (!amt || amt <= 0) {
+        alert("Enter a valid amount");
+        return;
+      }
+      pay(amt);
+    }
+  </script>
+</body>
+</html>
